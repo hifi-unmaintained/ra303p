@@ -40,7 +40,7 @@ fence_bug_fix:
     CMP EDX,0
     JL fence_bug_bad
     CMP EDX,0x4000
-    JBE fence_bug_good
+    JB fence_bug_good
     JMP fence_bug_bad
 
 fence_bug_out:
