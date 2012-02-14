@@ -14,6 +14,8 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
+; Original -LAN code was in CCHyper's 3.04, love you <3
+
 MOV EAX, arguments
 MOV ECX, 0x004F5B38
 CALL write_jmp

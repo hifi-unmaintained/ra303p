@@ -14,6 +14,8 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
+; This fix was originally in AlexB's Arda project, thank you for sharing
+
 MOV EAX, fence_bug_fix
 MOV ECX, 0x004A0219
 CALL write_jmp
