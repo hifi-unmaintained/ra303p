@@ -31,6 +31,7 @@ MOV DWORD [0x00589976],version
 ; extra
 %include "arguments.asm"
 %include "nocd.asm"
+%include "hires.asm"
 
 POPA
 

@@ -16,11 +16,13 @@
 
 ; This fix was originally in AlexB's Arda project, thank you for sharing
 
+tags_bug:
+
 MOV EAX, tags_bug_fix
 MOV ECX, 0x004FDDDC
 CALL write_jmp
 
-JMP tags_bug_out
+JMP .end
 
 tags_bug_fix:
 
@@ -29,4 +31,4 @@ tags_bug_fix:
     TEST BYTE [0x006680A1],2
     JMP 0x004FDDE3
 
-tags_bug_out:
+tags_bug.end:

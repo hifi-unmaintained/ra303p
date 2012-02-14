@@ -14,11 +14,13 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
+max_units_bug:
+
 MOV EAX, max_units_bug_fix
 MOV ECX, 0x004BEFED
 CALL write_jmp
 
-JMP max_units_bug_out
+JMP .end
 
 max_units_bug_fix:
 
@@ -27,4 +29,4 @@ max_units_bug_fix:
     JE 0x004BF21B
     JMP 0x004BEFF3
 
-max_units_bug_out:
+max_units_bug.end:

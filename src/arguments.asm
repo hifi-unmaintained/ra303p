@@ -16,34 +16,37 @@
 
 ; Original -LAN code was in CCHyper's 3.04, love you <3
 
-MOV EAX, arguments
+arguments:
+
+MOV EAX, new_arguments
 MOV ECX, 0x004F5B38
 CALL write_jmp
 
-JMP arguments_out
+JMP .end
 
 arg_lan: db "-LAN",0
 arg_internet: db "-INTERNET",0
 
-arguments:
+new_arguments:
 
+.lan:
     MOV EDX, arg_lan
     MOV EAX,ESI
     CALL stristr_
     TEST EAX,EAX
-    JE _internet
+    JE .internet
     MOV BYTE [0x0067F2B4], 3
-    JMP arguments_ret
+    JMP .ret 
 
-_internet:
+.internet:
     MOV EDX, arg_internet
     MOV EAX,ESI
     CALL stristr_
     TEST EAX,EAX
-    JE arguments_ret
+    JE .ret
     MOV BYTE [0x0067F2B4], 4
 
-arguments_ret:
+.ret:
     JMP 0x004F5B54
     
-arguments_out:
+arguments.end:

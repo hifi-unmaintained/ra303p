@@ -14,9 +14,12 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-%define stristr_    0x005CEC59
+tools:
 
-JMP tools_out
+%define stristr_            0x005CEC59
+%define INIClass_Get_Int    0x004F3660
+
+JMP .end 
 
 write_jmp:
 
@@ -27,4 +30,4 @@ write_jmp:
 
     RETN
 
-tools_out:
+tools.end:

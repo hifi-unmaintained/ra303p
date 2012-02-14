@@ -16,6 +16,8 @@
 
 ; This fix was originally in AlexB's Arda project, thank you for sharing
 
+fence_bug:
+
 MOV EAX, fence_bug_fix
 MOV ECX, 0x004A0219
 CALL write_jmp
@@ -23,7 +25,7 @@ CALL write_jmp
 %define fence_bug_bad 0x004A0227
 %define fence_bug_good 0x004A0229
 
-JMP fence_bug_out
+JMP .end
 
 fence_bug_fix:
 
@@ -45,4 +47,4 @@ fence_bug_fix:
     JB fence_bug_good
     JMP fence_bug_bad
 
-fence_bug_out:
+fence_bug.end:
