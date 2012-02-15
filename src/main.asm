@@ -14,7 +14,7 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x00710A00]
+[org 0x00711000]
 [bits 32]
 
 PUSHA
@@ -35,6 +35,7 @@ MOV DWORD [0x00589976],version
 
 POPA
 
-JMP 0x005D6148 ; real module entry point
+MOV DWORD [0x006EC9B0], 0x00551A70
+JMP 0x005DE558; real module entry point
 
-version: db "3.03p3 A1 ",0
+version: db "3.03p3 A2 ",0
