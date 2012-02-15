@@ -13,9 +13,9 @@ Tools to modify ra95.dat in tools/, actual code in src/.
 Just type "make" when you have ra95.dat in the root directory to apply the
 patches.
 
-The PE modify tool, "modpe" might not be production quality for anything else
-than Red Alert. I hope it can be perfected to expand any section in the image
-without causing any problems for the running program.
+The PE section insert tool, "extpe" might not be production quality for
+anything else than Red Alert. I hope it can be perfected to add a section to 
+any image without causing problems for the running program.
 
 I hope this evolves into something useful!
 
