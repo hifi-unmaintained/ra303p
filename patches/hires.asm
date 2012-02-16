@@ -14,21 +14,9 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-; This fix was originally in AlexB's Arda project, thank you for sharing
+%include "main.inc"
 
-tags_bug:
+[org 0x00552974]
+[bits 32]
 
-MOV EAX, tags_bug_fix
-MOV ECX, 0x004FDDDC
-CALL write_jmp
-
-JMP .end
-
-tags_bug_fix:
-
-    CMP ESI,0
-    JE 0x004FDDB8
-    TEST BYTE [0x006680A1],2
-    JMP 0x004FDDE3
-
-tags_bug.end:
+JMP _hires_ini

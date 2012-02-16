@@ -14,37 +14,9 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-; This fix was originally in AlexB's Arda project, thank you for sharing
+[org 0x004AAC58]
+[bits 32]
 
-fence_bug:
-
-MOV EAX, fence_bug_fix
-MOV ECX, 0x004A0219
-CALL write_jmp
-
-%define fence_bug_bad 0x004A0227
-%define fence_bug_good 0x004A0229
-
-JMP .end
-
-fence_bug_fix:
-
-    PUSH EAX
-    PUSH EBX
-
-    SUB EAX, DWORD [0x0066826C]
-    XOR EDX,EDX
-    MOV EBX,0x3A
-    IDIV EBX
-    MOV EDX,EAX
-
-    POP EBX
-    POP EAX
-
-    CMP EDX,0
-    JL fence_bug_bad
-    CMP EDX,0x4000
-    JB fence_bug_good
-    JMP fence_bug_bad
-
-fence_bug.end:
+_Force_CD_Available:
+    MOV EAX,1
+    RETN

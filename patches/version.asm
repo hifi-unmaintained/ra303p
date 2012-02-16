@@ -14,28 +14,9 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x00710000]
+%include "main.inc"
+
+[org 0x00589975]
 [bits 32]
 
-PUSHA
-
-MOV DWORD [0x00589976],version
-
-%include "tools.asm"
-
-; bug fixes
-%include "max_units_bug.asm"
-%include "fence_bug.asm"
-%include "tags_bug.asm"
-
-; extra
-%include "arguments.asm"
-%include "nocd.asm"
-%include "hires.asm"
-
-POPA
-
-MOV DWORD [0x006EC9B0], 0x00551A70
-JMP 0x005DE558; real module entry point
-
-version: db "3.03p3 A2 ",0
+MOV ESI,_str_version

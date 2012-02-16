@@ -14,19 +14,8 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
+[org 0x005CDD6E]
+[bits 32]
+
 ; search for disk drives instead of CD
-nocd:
-
-MOV BYTE [0x005CDD70],0x03
-
-MOV EAX, Force_CD_Available
-MOV ECX, 0x004AAC58
-CALL write_jmp
-
-JMP .end
-
-Force_CD_Available:
-    MOV EAX,1
-    RETN
-
-nocd.end:
+CMP EAX,0x05

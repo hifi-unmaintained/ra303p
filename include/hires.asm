@@ -16,23 +16,15 @@
 
 ; derived from ra95-hires
 
-hires:
-
-%define ScreenWidth  0x006016B0
+%define ScreenWidth 0x006016B0
 %define ScreenHeight 0x006016B4
-
-MOV EAX, hires_ini
-MOV ECX, 0x00552974
-CALL write_jmp
-
-JMP .end
 
 str_options: db "Options",0
 str_width: db "Width",0
 str_height: db "Height",0
 
 ; handles Width and Height redalert.ini options
-hires_ini:
+_hires_ini:
 
     PUSH EBX
     PUSH EDX
@@ -72,5 +64,3 @@ hires_ini:
     POP EBX
 
     JMP 0x00552979
-
-hires.end:

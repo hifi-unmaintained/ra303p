@@ -14,20 +14,17 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-tools:
+[org 0x00711000]
+[bits 32]
+[map symbols patches/main.map]
 
-%define stristr_            0x005CEC59
-%define INIClass_Get_Int    0x004F3660
+%include "globals.asm"
 
-JMP .end 
+; bug fixes
+%include "max_units_bug.asm"
+%include "fence_bug.asm"
+%include "tags_bug.asm"
 
-write_jmp:
-
-    SUB EAX, ECX
-    SUB EAX, 5
-    MOV BYTE [ECX],0xE9
-    MOV DWORD [ECX+1],EAX
-
-    RETN
-
-tools.end:
+; extra
+%include "arguments.asm"
+%include "hires.asm"

@@ -14,19 +14,9 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-max_units_bug:
+%include "main.inc"
 
-MOV EAX, max_units_bug_fix
-MOV ECX, 0x004BEFED
-CALL write_jmp
+[org 0x004F5B38]
+[bits 32]
 
-JMP .end
-
-max_units_bug_fix:
-
-    JE 0x004BF21B
-    CMP DWORD [ECX+0x2A], 0
-    JE 0x004BF21B
-    JMP 0x004BEFF3
-
-max_units_bug.end:
+JMP _arguments
