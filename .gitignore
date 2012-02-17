@@ -1,7 +1,9 @@
-*.bin
-*.map
-include/main.inc
+patches/*.bin
+patches/*.inc
+patches/*.map
 ra95.dat
 ra95.exe
 extpe
 linker
+extpe.exe
+linker.exe

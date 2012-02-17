@@ -16,6 +16,7 @@
 
 [org 0x004AAC58]
 [bits 32]
+[map all]
 
 _Force_CD_Available:
     MOV EAX,1

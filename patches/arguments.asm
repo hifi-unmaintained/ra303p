@@ -18,5 +18,6 @@
 
 [org 0x004F5B38]
 [bits 32]
+[map all]
 
 JMP _arguments

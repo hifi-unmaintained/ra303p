@@ -16,6 +16,7 @@
 
 [org 0x005CDD6E]
 [bits 32]
+[map all]
 
 ; search for disk drives instead of CD
 CMP EAX,0x05

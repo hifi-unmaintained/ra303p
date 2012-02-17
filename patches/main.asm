@@ -16,7 +16,7 @@
 
 [org 0x00711000]
 [bits 32]
-[map symbols patches/main.map]
+[map all]
 
 %include "globals.asm"
 

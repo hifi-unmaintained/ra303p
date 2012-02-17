@@ -18,5 +18,6 @@
 
 [org 0x004BEFED]
 [bits 32]
+[map all]
 
 JMP _max_units_bug

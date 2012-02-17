@@ -18,5 +18,6 @@
 
 [org 0x00552974]
 [bits 32]
+[map all]
 
 JMP _hires_ini

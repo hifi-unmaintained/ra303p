@@ -18,5 +18,6 @@
 
 [org 0x004FDDDC]
 [bits 32]
+[map all]
 
 JMP _tags_bug

@@ -18,5 +18,6 @@
 
 [org 0x004A0219]
 [bits 32]
+[map all]
 
 JMP _fence_bug
