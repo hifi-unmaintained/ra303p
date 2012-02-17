@@ -7,7 +7,9 @@ RM?=rm -f
 CC?=gcc
 CFLAGS?=-m32 -ansi -pedantic -O2 -Wall
 
-PATCHES=patches/main.bin patches/version.bin patches/tags_bug.bin patches/fence_bug.bin patches/arguments.bin patches/nocd_Force_CD_Available.bin patches/nocd_search_type.bin patches/hires.bin
+PATCHES=patches/main.bin patches/version.bin patches/tags_bug.bin patches/fence_bug.bin \
+        patches/arguments.bin patches/nocd_Force_CD_Available.bin patches/nocd_search_type.bin \
+        patches/hires.bin patches/hires_StripClass.bin
 INCLUDES=include/globals.asm include/arguments.asm include/fence_bug.asm include/hires.asm include/max_units_bug.asm include/tags_bug.asm
 
 all: ra95.exe $(PATCHES)
