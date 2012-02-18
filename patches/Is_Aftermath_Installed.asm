@@ -22,9 +22,21 @@
 
 %define Find_File                   0x00462DD4
 
+PUSH EBX
+PUSH ECX
+PUSH EDX
+PUSH ESI
+PUSH EDI
+
 PUSH str_am_file
 CALL Find_File
 ADD ESP,4
+
+POP EDI
+POP ESI
+POP EDX
+POP ECX
+POP EBX
 
 RETN
 
