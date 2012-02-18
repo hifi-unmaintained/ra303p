@@ -14,17 +14,18 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x00711000]
+; rewritten to check for a file instead of a registry key
+
+[org 0x004ABF88]
 [bits 32]
 [map all]
 
-%include "globals.asm"
+%define Find_File                   0x00462DD4
 
-; bug fixes
-%include "max_units_bug.asm"
-%include "fence_bug.asm"
-%include "tags_bug.asm"
+PUSH str_cs_file
+CALL Find_File
+ADD ESP,4
 
-; extra
-%include "arguments.asm"
-;%include "hires.asm"
+RETN
+
+str_cs_file db "SCU38EA.INI",0
