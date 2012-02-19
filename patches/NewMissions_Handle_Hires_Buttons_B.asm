@@ -14,7 +14,10 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-_str_version: db "3.03p3 A5 ",0
+%include "main.inc"
 
-%define stristr_            0x005CEC59
-%define INIClass_Get_Int    0x004F3660
+[org 0x004BE3B2]
+[bits 32]
+[map all]
+
+JMP _NewMissions_Handle_Hires_Buttons_B

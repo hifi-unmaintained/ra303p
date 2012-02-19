@@ -27,4 +27,4 @@
 
 ; extra
 %include "arguments.asm"
-;%include "hires.asm"
+%include "hires.asm"

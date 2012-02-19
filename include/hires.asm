@@ -16,15 +16,46 @@
 
 ; derived from ra95-hires
 
-%define ScreenWidth 0x006016B0
-%define ScreenHeight 0x006016B4
+%define ScreenWidth     0x006016B0
+%define ScreenHeight    0x006016B4
 
-str_options: db "Options",0
-str_width: db "Width",0
-str_height: db "Height",0
+AdjustedWidth           dd 0
 
-left_strip_offset: dd 0
-right_strip_offset: dd 0
+diff_width              dd 0
+diff_height             dd 0
+diff_top                dd 0
+diff_left               dd 0
+
+str_options             db "Options",0
+str_width               db "Width",0
+str_height              db "Height",0
+
+left_strip_offset       dd 0
+right_strip_offset      dd 0
+
+%macro _hires_adjust_width 1
+    MOV ECX, [diff_width]
+    MOV EAX, %1
+    ADD [EAX], ECX
+%endmacro
+
+%macro _hires_adjust_height 1
+    MOV ECX, [diff_height]
+    MOV EAX, %1
+    ADD [EAX], ECX
+%endmacro
+
+%macro _hires_adjust_top 1
+    MOV ECX, [diff_top]
+    MOV EAX, %1
+    ADD [EAX], ECX
+%endmacro
+
+%macro _hires_adjust_left 1
+    MOV ECX, [diff_left]
+    MOV EAX, %1
+    ADD [EAX], ECX
+%endmacro
 
 ; handles Width and Height redalert.ini options
 _hires_ini:
@@ -54,86 +85,240 @@ _hires_ini:
 
 .cleanup:
 
-    MOV EDX, [ScreenWidth]
-    MOV EBX, [ScreenHeight]
-    MOV EAX, EDX
+    ; adjust width
+    MOV EAX, [ScreenWidth]
+    SUB EAX, 160
+    MOV EBX, 24
+    XOR EDX,EDX
+    DIV EBX
+
+    ; width of the game area, in tiles, 1 tile = 24px
+    MOV BYTE [0x0054DB15], AL
+
+    XOR EDX,EDX
+    MOV EBX, 24
+    MUL EBX
+
+    ADD EAX, 160
+    MOV [AdjustedWidth], EAX
 
     ; adjusted width in EAX
-    MOV EDX, EAX
+    MOV EDX, [AdjustedWidth]
+    MOV EBX, [ScreenHeight]
+
+    SUB EDX, 640
+    SUB EBX, 400
+
+    MOV [diff_width], EDX
+    MOV [diff_height], EBX
+
+    ; adjust top and left
+    MOV EAX, [ScreenHeight]
+    SHR EAX, 1
+    SUB EAX, 200
+    MOV [diff_top], EAX
+
+    MOV EAX, [ScreenWidth]
+    SHR EAX, 1
+    SUB EAX, 320
+    MOV [diff_left], EAX
+
+    MOV EDX, [AdjustedWidth]
+    MOV EBX, [ScreenHeight]
+
+    ; main menu please wait...
+    _hires_adjust_top 0x004F43BF
+    _hires_adjust_left 0x004F43C4
+
+    ; main menu version
+    _hires_adjust_top 0x00501D68
+    _hires_adjust_left 0x00501D63
+
+    ; main menu buttons
+    _hires_adjust_top 0x00501DBE
+    _hires_adjust_left 0x00501DB9
+
+    ; new game skill select
+    ; ... ok button
+    _hires_adjust_top 0x005517CB
+    _hires_adjust_left 0x005517DA
+
+    ; ... dialog
+    _hires_adjust_top 0x0055188A
+    _hires_adjust_left 0x0055188F
+
+    ; ... slider
+    _hires_adjust_top 0x005517F0
+    _hires_adjust_left 0x005517F5
+
+    ; load/save game dialogs
+    _hires_adjust_top 0x004FCED5
+    _hires_adjust_left 0x004FCED0
+
+    ; ... list
+    _hires_adjust_top 0x004FCF00
+    _hires_adjust_left 0x004FCEFB
+
+    ; ... mission description
+    _hires_adjust_top 0x004FCF05
+    _hires_adjust_left 0x004FCEDA
+
+    ; ... buttons
+    _hires_adjust_top 0x004FCF36
+    _hires_adjust_left 0x004FCF31
+    _hires_adjust_left 0x004FCF0A
+
+    ; multiplayer dialog
+    _hires_adjust_top 0x0050347D
+    _hires_adjust_left 0x00503482
+
+    ; ... modem/serial
+    _hires_adjust_top 0x005034F5
+    _hires_adjust_left 0x00503502
+
+    ; ... skirmish
+    _hires_adjust_top 0x0050351D
+    _hires_adjust_left 0x0050352C
+
+    ; ... network
+    _hires_adjust_top 0x0050354A
+    _hires_adjust_left 0x00503559
+
+    ; ... internet
+    _hires_adjust_top 0x00503577
+    _hires_adjust_left 0x00503586
+
+    ; ... cancel
+    _hires_adjust_top 0x005034C9
+    _hires_adjust_left 0x0050349D
+
+    ; skirmish dialog
+    ; ... all items offset top
+    _hires_adjust_top 0x00512907
+
+    ; ... some items offset left
+    _hires_adjust_left 0x00512902
+    _hires_adjust_left 0x0051293A
+    _hires_adjust_left 0x00512944
+    _hires_adjust_left 0x0051296B
+
+    ; sound controls dialog
+    _hires_adjust_top 0x005502A9
+    _hires_adjust_left 0x005503BA
+
+    ; ... song list
+    _hires_adjust_top 0x00550304
+    _hires_adjust_left 0x005502E4
+
+    ; ... ok button
+    _hires_adjust_top 0x00550331
+    _hires_adjust_left 0x00550341
+
+    ; ... stop button
+    _hires_adjust_top 0x00550356
+    _hires_adjust_left 0x00550360
+
+    ; ... play button
+    _hires_adjust_top 0x0055037C
+    _hires_adjust_left 0x00550386
+
+    ; ... shuffle button
+    _hires_adjust_top 0x005503B5
+    _hires_adjust_left 0x005503C2
+
+    ; ... repeat button
+    _hires_adjust_top 0x005503E7
+    _hires_adjust_left 0x005503F6
+
+    ; ... music volume slider
+    _hires_adjust_top 0x0055040F
+    _hires_adjust_left 0x00550414
+
+    ; ... sound volume slider
+    _hires_adjust_top 0x00550432
+    _hires_adjust_left 0x00550437
+
+    ; ... gadget offset top
+    _hires_adjust_top 0x0055045A
+
+    ; surrender dialog
+    _hires_adjust_top 0x00503F0D
+    _hires_adjust_left 0x00503F05
+
+    ; ... ok button
+    _hires_adjust_top 0x00503E3C
+    _hires_adjust_left 0x00503E4B
+
+    ; ... cancel button
+    _hires_adjust_top 0x00503E66
+    _hires_adjust_left 0x00503E75
+
+    ; ... caption
+    _hires_adjust_top 0x00503F3A
+    _hires_adjust_left 0x00503F3F
+
+    ; scrolling
+    _hires_adjust_width 0x00547119
+    _hires_adjust_width 0x00547129
+    _hires_adjust_width 0x00547130
+    _hires_adjust_width 0x0054713D
+    _hires_adjust_left 0x00547144
+    _hires_adjust_height 0x00547177
+    _hires_adjust_height 0x00547187
+    _hires_adjust_height 0x0054718E
+    _hires_adjust_left 0x00547193
+    _hires_adjust_top 0x0054719A
 
     ; buffer1
-    MOV DWORD [0x00552629], EBX
-    MOV DWORD [0x00552638], EDX
+    _hires_adjust_height 0x00552629
+    _hires_adjust_width 0x00552638
 
     ; buffer2
-    MOV DWORD [0x00552646], EBX
-    MOV DWORD [0x00552655], EDX
-
-    SUB EDX, 160
+    _hires_adjust_height 0x00552646
+    _hires_adjust_width 0x00552655
 
     ; power bar background
-    MOV DWORD [0x00527736], EDX
-    MOV DWORD [0x0052775C], EDX
+    _hires_adjust_width 0x00527736
+    _hires_adjust_width 0x0052775C
 
     ; side bar background position
-    MOV DWORD [0x0054D7CB], EDX
-    MOV DWORD [0x0054D7F1], EDX
-    MOV DWORD [0x0054D816], EDX
+    _hires_adjust_width 0x0054D7CB
+    _hires_adjust_width 0x0054D7F1
+    _hires_adjust_width 0x0054D816
 
     ; credits tab background position
-    MOV DWORD [0x00553758], EDX
+    _hires_adjust_width 0x00553758
 
     ; power bar current position
-    MOV DWORD [0x005275D9], EDX
+    _hires_adjust_width 0x005275D9
 
     ; repair button left offset
-    MOV EDX, EAX
-    SUB EDX, 142
-    MOV DWORD [0x0054D166], EDX
+    _hires_adjust_width 0x0054D166
 
     ; sell button left offset
-    MOV EDX, EAX
-    SUB EDX, 97
-    MOV DWORD [0x0054D1DA], EDX
+    _hires_adjust_width 0x0054D1DA
 
     ; map button left offset
-    MOV EDX, EAX
-    SUB EDX, 52
-    MOV DWORD [0x0054D238], EDX
+    _hires_adjust_width 0x0054D238
 
     ; side bar strip offset left (left bar)
-    MOV EDX, EAX
-    SUB EDX, 144
-    MOV EAX, [left_strip_offset]
-    MOV DWORD [EAX], EDX
+    _hires_adjust_width [left_strip_offset]
 
     ; side bar strip icons offset
-    MOV DWORD [0x0054D08C], EDX
+    _hires_adjust_width 0x0054D08C
 
     ; side bar strip offset left (right bar)
-    ADD EDX, 70
-    MOV EAX, [right_strip_offset]
-    MOV DWORD [EAX], EDX
+    _hires_adjust_width [right_strip_offset]
 
     ; power indicator (darker shadow)
-    MOV EDX, EAX
-    SUB EDX, 150
-    MOV DWORD [0x005278A4], EDX
-    INC EDX
-    MOV DWORD [0x005278AE], EDX
-    INC EDX
-    MOV DWORD [0x00527A4D], EDX
-    INC EDX
-    MOV DWORD [0x00527A52], EDX
+    _hires_adjust_width 0x005278A4
+    _hires_adjust_width 0x005278AE
+    _hires_adjust_width 0x00527A4D
+    _hires_adjust_width 0x00527A52
 
     ; power usage indicator
-    MOV EDX, EAX
-    SUB EDX, 158
-    MOV DWORD [0x00527C0F], EDX
+    _hires_adjust_width 0x00527C0F
     
-    ; width of the game area, in tiles, 1 tile = 24px
-    MOV BYTE [0x0054DB15], 26
-
     ; kill original sidebar area (halp)
     MOV BYTE [0x0054F380], 0xC3
 
@@ -155,3 +340,41 @@ _hires_StripClass:
 
     MOV EAX,EBX
     JMP 0x0054D033
+
+_hires_MainMenu:
+    MOV EAX, [diff_top]
+    PUSH EAX
+    MOV EAX, [diff_left]
+    PUSH EAX
+    PUSH 0
+    PUSH 0
+    JMP 0x005B3DC7
+
+_hires_Intro:
+    MOV EAX, [diff_top]
+    PUSH EAX
+    MOV EAX, [diff_left]
+    PUSH EAX
+    PUSH 0
+    PUSH 0
+    JMP 0x004A9EB1
+
+_hires_NewGameText_top  dd 0x96
+_hires_NewGameText_left dd 0x6E
+
+_hires_NewGameText:
+    _hires_adjust_top _hires_NewGameText_top
+    MOV EAX, [_hires_NewGameText_top]
+    PUSH EAX
+    _hires_adjust_left _hires_NewGameText_left
+    MOV EAX, [_hires_NewGameText_left]
+    PUSH EAX
+    JMP 0x005518AA
+
+_hires_SkirmishMenu:
+    MOV ECX, [diff_left]
+    MOV DWORD [EBP-0x1D4], ECX
+    MOV ECX, [diff_top]
+    MOV DWORD [EBP-0x1D0], ECX
+    XOR ECX,ECX
+    JMP 0x005128E0
