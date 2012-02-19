@@ -14,7 +14,7 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-_str_version: db "3.03p3 A5 ",0
+_str_version: db "3.03p3 A6 ",0
 
 %define stristr_            0x005CEC59
 %define INIClass_Get_Int    0x004F3660
