@@ -378,3 +378,25 @@ _hires_SkirmishMenu:
     MOV DWORD [EBP-0x1D0], ECX
     XOR ECX,ECX
     JMP 0x005128E0
+
+%define _Buffer_Clear 0x005C4DE0
+
+%define GraphicsViewPortClass_HidPage 0x006807CC
+%define GraphicsViewPortClass_SeenBuff 0x006807A4
+
+%macro _hires_Clear 0
+    PUSH 0
+    PUSH GraphicsViewPortClass_HidPage
+    CALL _Buffer_Clear
+    ADD ESP,8
+%endmacro
+
+_hires_MainMenuClear:
+    _hires_Clear
+    MOV EAX,1
+    JMP 0x004F47A0
+
+_hires_MainMenuClearPalette:
+    _hires_Clear
+    MOV EAX, [0x006807E8]
+    JMP 0x004F7600
