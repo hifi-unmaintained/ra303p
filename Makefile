@@ -22,7 +22,7 @@ tools: linker$(EXT) extpe$(EXT)
 
 ra95.exe: extpe$(EXT)
 	$(CP) ra95.dat ra95.exe
-	./extpe$(EXT) ra95.exe 4095 > $(NULL)
+	./extpe$(EXT) ra95.exe
 
 patches/%.bin: patches/%.asm linker$(EXT) $(INCLUDES)
 	$(NASM) $(NFLAGS) -f bin -o $@ $< | ./linker$(EXT) ra95.exe > $(NULL)
