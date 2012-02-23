@@ -9,6 +9,7 @@ CFLAGS?=-m32 -ansi -pedantic -O2 -Wall
 
 PATCHES=patches/main.bin patches/version.bin patches/tags_bug.bin patches/fence_bug.bin \
         patches/arguments.bin patches/nocd_Force_CD_Available.bin patches/nocd_search_type.bin \
+        patches/nocd_Init_CDROM_Access.bin \
         patches/Is_Aftermath_Installed.bin patches/Is_Counterstrike_Installed.bin \
         patches/hires.bin patches/hires_MainMenu.bin patches/hires_MainMenuClear.bin \
         patches/hires_MainMenuClearPalette.bin patches/hires_Intro.bin \
