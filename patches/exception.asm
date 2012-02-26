@@ -14,20 +14,10 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x00711000]
+%include "main.inc"
+
+[org 0x005DE636]
 [bits 32]
 [map all]
 
-%include "globals.asm"
-
-; exception handler, handy
-;%include "exception.asm"
-
-; bug fixes
-%include "max_units_bug.asm"
-%include "fence_bug.asm"
-%include "tags_bug.asm"
-
-; extra
-%include "arguments.asm"
-%include "hires.asm"
+JMP _try_WinMain
