@@ -392,11 +392,11 @@ _hires_SkirmishMenu:
 %endmacro
 
 _hires_MainMenuClear:
-    _hires_Clear
+    ;_hires_Clear
     MOV EAX,1
     JMP 0x004F47A0
 
 _hires_MainMenuClearPalette:
-    _hires_Clear
+    ;_hires_Clear
     MOV EAX, [0x006807E8]
     JMP 0x004F7600
