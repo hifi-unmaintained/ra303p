@@ -40,4 +40,4 @@ POP EBX
 
 RETN
 
-str_am_file db "AFTRMATH.INI",0
+str_am_file db "SCG43EA.INI",0
