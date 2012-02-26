@@ -8,7 +8,8 @@ Building requirements:
  * nasm
  * ra95.dat (from ra303eng.zip)
 
-Tools to modify ra95.dat in tools/, actual code in src/.
+Tools to modify ra95.dat in tools/, patches in patches/, additional code in
+include/.
 
 Just type "make" when you have ra95.dat in the root directory to apply the
 patches.
