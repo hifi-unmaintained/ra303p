@@ -14,9 +14,9 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x004F7A08]
-[bits 32]
-[map all]
-
-_Init_CDROM_Access:
-    RETN
+%define USE_BUGFIXES
+; exception handler is still buggy
+%undef USE_EXCEPTIONS
+%define USE_NOCD
+; hires is still buggy
+%undef USE_HIRES

@@ -14,7 +14,7 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-%include "main.inc"
+%include "src/main.inc"
 
 [org 0x00589975]
 [bits 32]

@@ -14,10 +14,6 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-%include "main.inc"
-
-[org 0x004A0219]
-[bits 32]
-[map all]
-
-JMP _fence_bug
+%define Find_File           0x00462DD4
+%define stristr_            0x005CEC59
+%define INIClass_Get_Int    0x004F3660

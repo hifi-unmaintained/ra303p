@@ -14,10 +14,33 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x004AAC58]
+[org 0x00711000]
 [bits 32]
 [map all]
 
-_Force_CD_Available:
-    MOV EAX,1
-    RETN
+_str_version: db "3.03p4 A1 ",0
+
+%include "config.inc"
+%include "imports.inc"
+
+; generic
+%include "src/arguments.asm"
+%include "src/expansions.asm"
+
+%ifdef USE_NOCD
+%include "src/nocd.asm"
+%endif
+
+%ifdef USE_EXCEPTIONS
+%include "src/exception.asm"
+%endif
+
+%ifdef USE_BUGFIXES
+%include "src/max_units_bug.asm"
+%include "src/fence_bug.asm"
+%include "src/tags_bug.asm"
+%endif
+
+%ifdef USE_HIRES
+%include "src/hires.asm"
+%endif

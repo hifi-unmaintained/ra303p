@@ -1,43 +1,36 @@
-NASM?=nasm
-NFLAGS?=-I./include/ -I./patches/
-EXT?=
-CP?=cp
-NULL?=/dev/null
-RM?=rm -f
+NFLAGS=-I./include/
 CC?=gcc
-CFLAGS?=-m32 -ansi -pedantic -O2 -Wall
+CFLAGS=-m32 -ansi -pedantic -O2 -Wall
+DAT=ra95.dat
+EXE=ra95.exe
 
-PATCHES=patches/main.bin patches/version.bin patches/tags_bug.bin patches/fence_bug.bin \
-        patches/arguments.bin patches/nocd_Force_CD_Available.bin patches/nocd_search_type.bin \
-        patches/nocd_Init_CDROM_Access.bin patches/Is_Aftermath_Installed.bin \
-        patches/Is_Counterstrike_Installed.bin patches/hires.bin patches/hires_MainMenu.bin \
-        patches/hires_MainMenuClear.bin patches/hires_MainMenuClearPalette.bin \
-        patches/hires_Intro.bin patches/hires_NewGameText.bin patches/hires_SkirmishMenu.bin \
-        patches/hires_StripClass.bin
-INCLUDES=include/globals.asm include/arguments.asm include/fence_bug.asm \
-        include/hires.asm include/max_units_bug.asm include/tags_bug.asm \
-        include/exception.asm
+all: ra95.exe build
 
-all: ra95.exe $(PATCHES)
+tools: linker$(EXT) hooker$(EXT) extpe$(EXT)
 
-tools: linker$(EXT) extpe$(EXT)
+ra95.exe: $(DAT) extpe$(EXT)
+	cp $(DAT) $(EXE)
+	./extpe$(EXT) $(EXE)
 
-ra95.exe: extpe$(EXT)
-	$(CP) ra95.dat ra95.exe
-	./extpe$(EXT) ra95.exe
+build: linker$(EXT) hooker$(EXT)
+	nasm $(NFLAGS) -f bin -o src/main.bin src/main.asm | ./linker$(EXT) $(EXE) > /dev/null
+	nasm $(NFLAGS) -f bin -o src/nocd_search_type.bin src/nocd_search_type.asm | ./linker$(EXT) $(EXE) > /dev/null
+	nasm $(NFLAGS) -f bin -o src/version.bin src/version.asm | ./linker$(EXT) $(EXE) > /dev/null
+	nasm $(NFLAGS) -f bin -o src/hooks.bin src/hooks.asm
+	./hooker$(EXT) src/hooks.bin $(EXE)
 
-patches/%.bin: patches/%.asm linker$(EXT) $(INCLUDES)
-	$(NASM) $(NFLAGS) -f bin -o $@ $< | ./linker$(EXT) ra95.exe > $(NULL)
-
-ra95.dat:
+$(DAT):
 	@echo "You are missing the required ra95.dat from 3.03 patch"
 	@false
 
 linker$(EXT): tools/linker.c
 	$(CC) $(CFLAGS) -o linker$(EXT) tools/linker.c
 
+hooker$(EXT): tools/hooker.c
+	$(CC) $(CFLAGS) -o hooker$(EXT) tools/hooker.c
+
 extpe$(EXT): tools/extpe.c tools/pe.h
 	$(CC) $(CFLAGS) -o extpe$(EXT) tools/extpe.c
 
 clean:
-	$(RM) extpe$(EXT) linker$(EXT) ra95.exe patches/*.map patches/*.bin patches/*.inc
+	rm -rf extpe$(EXT) linker$(EXT) hooker$(EXT) $(EXE) src/*.map src/*.bin src/*.inc

@@ -14,10 +14,9 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-%include "main.inc"
+_Force_CD_Available:
+    MOV EAX,1
+    RETN
 
-[org 0x004BE3B2]
-[bits 32]
-[map all]
-
-JMP _NewMissions_Handle_Hires_Buttons_B
+_Init_CDROM_Access:
+    RETN

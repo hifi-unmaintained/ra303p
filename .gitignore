@@ -1,9 +1,11 @@
-patches/*.bin
-patches/*.inc
-patches/*.map
+src/*.bin
+src/*.inc
+src/*.map
 ra95.dat
 ra95.exe
 extpe
 linker
+hooker
 extpe.exe
 linker.exe
+hooker.exe
