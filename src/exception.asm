@@ -66,6 +66,8 @@ exception_pointers:
         at EXCEPTION_POINTERS.ContextRecord,    dd 0
     iend
 
+@HOOK 0x005DE636 _try_WinMain
+
 _try_WinMain:
 
     INT3

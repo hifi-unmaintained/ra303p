@@ -15,10 +15,8 @@
 ;
 
 [org 0x00711000]
-[bits 32]
-[map all]
 
-_str_version: db "3.03p4 A1 ",0
+_str_version: db "3.03p4 A2 ",0
 
 %include "config.inc"
 %include "imports.inc"

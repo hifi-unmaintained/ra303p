@@ -16,6 +16,9 @@
 
 ; rewritten to check for a file instead of a registry key
 
+@HOOK 0x004AC024 _Is_Aftermath_Installed
+@HOOK 0x004ABF88 _Is_Counterstrike_Installed
+
 str_am_file db "SCG43EA.INI",0
 str_cs_file db "SCU38EA.INI",0
 

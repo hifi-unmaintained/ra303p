@@ -16,6 +16,8 @@
 
 ; This fix was originally in AlexB's Arda project, thank you for sharing
 
+@HOOK 0x004FDDDC _tags_bug
+
 _tags_bug:
     CMP ESI,0
     JE 0x004FDDB8

@@ -16,6 +16,8 @@
 
 ; Original -LAN code was in CCHyper's 3.04, love you <3
 
+@HOOK 0x004F5B38 _arguments
+
 arg_lan: db "-LAN",0
 arg_internet: db "-INTERNET",0
 

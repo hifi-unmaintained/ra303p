@@ -17,7 +17,5 @@
 %include "src/main.inc"
 
 [org 0x00589975]
-[bits 32]
-[map all]
 
 MOV ESI,_str_version

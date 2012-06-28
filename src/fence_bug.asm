@@ -16,6 +16,8 @@
 
 ; This fix was originally in AlexB's Arda project, thank you for sharing
 
+@HOOK 0x004A0219 _fence_bug
+
 %define fence_bug_bad 0x004A0227
 %define fence_bug_good 0x004A0229
 
