@@ -1,4 +1,4 @@
-NFLAGS    = -I $(patchdir) -I $(patchdir)/include/
+NFLAGS    = -I $(patchdir)/ -I $(patchdir)/include/
 NASM     ?= nasm$(EXT)
 
 patchdir ?= .
