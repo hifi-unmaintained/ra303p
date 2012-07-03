@@ -1,6 +1,6 @@
-src/*.bin
-src/*.inc
-src/*.map
+patch/src/*.bin
+patch/src/*.inc
+patch/src/*.map
 ra95.dat
 ra95.exe
 extpe
