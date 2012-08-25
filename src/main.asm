@@ -16,14 +16,16 @@
 
 [org 0x00711000]
 
-_str_version: db "3.03p4 A2 ",0
+_str_version: db "3.03p4 B6 ",0
 
 %include "config.inc"
 %include "imports.inc"
+%include "string.inc"
 
 ; generic
 %include "src/arguments.asm"
 %include "src/expansions.asm"
+%include "src/spawn.asm"
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"
