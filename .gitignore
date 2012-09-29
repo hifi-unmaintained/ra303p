@@ -1,11 +1,6 @@
-src/*.bin
 src/*.inc
-src/*.map
-ra95.dat
-ra95.exe
+*.inc
+*.dat
+*.exe
 extpe
 linker
-hooker
-extpe.exe
-linker.exe
-hooker.exe
