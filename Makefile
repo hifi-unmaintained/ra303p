@@ -1,9 +1,10 @@
 NFLAGS=-I./include/
 CC?=gcc
-CFLAGS=-m32 -pedantic -O2 -Wall
 DAT=ra95.dat
 EXE=ra95.exe
 NASM?=nasm$(EXT)
+REV=$(shell sh -c 'git rev-parse --short @{0}')
+CFLAGS=-m32 -pedantic -O2 -Wall -DREV=\"$(REV)\"
 
 all: ra95.exe build
 
