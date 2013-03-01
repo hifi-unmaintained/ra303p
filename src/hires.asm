@@ -24,9 +24,9 @@
 @HOOK 0x005518A3 _hires_NewGameText
 @HOOK 0x005128D4 _hires_SkirmishMenu
 @HOOK 0x0054D009 _hires_StripClass
-@HOOK 0x004BE388 _NewMissions_Handle_Hires_Buttons_A
-@HOOK 0x004BE3B2 _NewMissions_Handle_Hires_Buttons_B
-@HOOK 0x004BE3E6 _NewMissions_Handle_Hires_List
+;@HOOK 0x004BE388 _NewMissions_Handle_Hires_Buttons_A
+;@HOOK 0x004BE3B2 _NewMissions_Handle_Hires_Buttons_B
+;@HOOK 0x004BE3E6 _NewMissions_Handle_Hires_List
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
