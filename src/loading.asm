@@ -80,20 +80,19 @@ generatememorydump	db 0
 %macro Initialize_Remap_Table 1
 	xor		eax, eax
 
-.Loop_Initialize_Remap_Table%1:
-	mov		BYTE [extraremaptable+2+eax+%1], al
+.Loop_Initialize_Remap_Table_%1:
+	mov		BYTE [extraremaptable+2+%1+eax], al
 	inc		eax
-	cmp		BYTE AL, 0x100
-	jnz		.Loop_Initialize_Remap_Table%1
-	
-	xor		eax, eax
+	cmp		BYTE AL, 0                          ;loop 256 times
+	jnz		.Loop_Initialize_Remap_Table_%1
+
 	mov		eax, 258
 
-.Loop_Initialize_Black_Part%1:
-	mov		BYTE [extraremaptable+eax+%1], 00
+.Loop_Initialize_Black_Part_%1:
+	mov		BYTE [extraremaptable+%1+eax], 00
 	inc		eax
 	cmp		eax, 268
-	jnz		.Loop_Initialize_Black_Part%1	
+	jnz		.Loop_Initialize_Black_Part_%1	
 %endmacro
 
 ; args: <INIClass>, <section>, <key>, <default>, <dst>
