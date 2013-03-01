@@ -1,5 +1,5 @@
 src/*.inc
-*.inc
+#*.inc
 *.exe
 extpe
 linker
