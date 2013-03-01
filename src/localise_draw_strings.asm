@@ -35,7 +35,7 @@ _Localise_Has_Proposed_That_The_Game_Be_Declared_A_Draw:
 	push	eax
 	jmp		0x004BDE5A
 	
-_Localise_You_Have_Proposed_That_The_Game_Be_Declared_A_Draw
+_Localise_You_Have_Proposed_That_The_Game_Be_Declared_A_Draw:
 	Extract_Conquer_Eng_String 113
 	mov		ecx, eax
 	jmp		0x004BDE09

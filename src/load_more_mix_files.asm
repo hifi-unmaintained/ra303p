@@ -118,7 +118,7 @@ _load_more_mix_files:
 	JNZ	.No_German_Censored
 	Load_Mix_File_Cached 	germancensoredlanguagepack_str
 
-.No_German_Censored
+.No_German_Censored:
 	CMP DWORD [gamelanguage], 4
 	JNZ	.No_German_Uncensored
 	Load_Mix_File_Cached 	germanuncensoredlanguagepack_str

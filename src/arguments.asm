@@ -41,7 +41,7 @@ _Select_Game_AntMissions_Check:
 	mov DWORD [ebp-30h], 2
 	xor     edi, edi
 
-.Jump_Back
+.Jump_Back:
 	test    edi, edi
 	jnz     0x0050210E
 	jmp		0x005025D4

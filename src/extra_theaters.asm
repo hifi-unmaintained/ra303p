@@ -100,7 +100,7 @@ _Theater_From_Name_New_Theaters_Array:
 	add     edx, Temperate
 	jmp		0x004A7AF1
 	
-_Theater_From_Name_New_Theaters_Counter_Check
+_Theater_From_Name_New_Theaters_Counter_Check:
 	cmp     dl, 5           ; 3 theaters originally, 5 now
 	jl      0x004A7AE0
 	jmp     0x004A7AFF

@@ -5,7 +5,7 @@ _Skirmish_Menu_Write_Multiplayer_Settings:
 	mov     eax, 0x0067F2B4
 	jmp		0x00516153
 
-_Network_Menu_Write_Multiplayer_Settings	
+_Network_Menu_Write_Multiplayer_Settings:
 	call	0x005C21E0
 	
 	mov     eax, 0x0067F2B4

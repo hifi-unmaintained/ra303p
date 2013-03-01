@@ -102,7 +102,7 @@ _RedrawOptionsMenu_Add_Surrender_Dialog_Flag_Check:
 	jle     0x004CA15E
 	jmp		0x004C9F4E
 	
-_RedrawOptionsMenu_Add_Surrender_Dialog_Flag_Check2
+_RedrawOptionsMenu_Add_Surrender_Dialog_Flag_Check2:
 	cmp		DWORD [ResignKeyPressed], 0
 	jz		0x004CA7A5 
 		

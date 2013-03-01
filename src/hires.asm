@@ -1407,7 +1407,7 @@ _Blacken_Screen_Border_Menu:
 	jmp 0x00502243
 	
 _Blacken_Screen_Border_Menu2:
-	hires_Clear2
+	hires_Clear_2
 	mov eax, 1
 
 	jmp 0x00502293

@@ -121,7 +121,7 @@ _Custom_Missions_Load_Map_Specific_Tutorial_Text:
 	lea     edx, [ebp-8Ch]
 	jmp		0x0053D6B0
 
-_Custom_Missions_Expansion_Missions_Button_Name
+_Custom_Missions_Expansion_Missions_Button_Name:
 	push	edx
 	push	eax
 	
@@ -141,7 +141,7 @@ _Custom_Missions_Expansion_Missions_Dialog_Name:
 	pop		edx
 	jmp		0x004BE7E3
 
-_Custom_Missions_Custom_Missions_Dialog_Name
+_Custom_Missions_Custom_Missions_Dialog_Name:
 	push	edx
 	
 	Extract_Conquer_Eng_String 120

@@ -35,7 +35,7 @@ _Conditionally_Load_Cstrike_PKT:
 	mov     edx, str_blankpkt
 	jmp		0x0054BD42
 	
-_Patch_Out_Aftermath_Installed_Check
+_Patch_Out_Aftermath_Installed_Check:
 	jmp		0x0054BEAB
 	
 _Conditionally_Load_Aftmath_PKT:
