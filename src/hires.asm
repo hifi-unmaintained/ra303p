@@ -1026,15 +1026,15 @@ _Fill_Rect_test:
 
 	mov al, 0
 	push	eax
-	mov     word ecx, 0 ; [ebp-0ACh] top
-	push    WORD ecx             ; __int16
-	mov     word eax, 0; [ebp-0B0h] ; left
-	push    WORD eax             ; __int16
-	mov     word edx, 1000 ; [ebp-0B4h]
-	push    WORD edx             ; __int16
-	mov     word ebx, 1500 ; [ebp-0B8h]
-	push    WORD ebx             ; __int16
-	mov		ebx, [0x006AC274] ; GraphicViewPortClass LogicPage
+	mov     cx, 0     ; [ebp-0ACh]           ; top
+	push    cx                     ; __int16
+	mov     ax, 0     ; [ebp-0B0h]           ; left
+	push    ax                     ; __int16
+	mov     dx, 1000  ; [ebp-0B4h]
+	push    dx                     ; __int16
+	mov     bx, 1500  ; [ebp-0B8h]
+	push    bx                     ; __int16
+	mov	ebx, [0x006AC274] ; GraphicViewPortClass LogicPage
 	push	ebx
 	jmp	0x00507B65
 
