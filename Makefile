@@ -1,33 +1,23 @@
-NFLAGS=-I./include/
-CC?=gcc
-DAT=ra95.dat
-EXE=ra95.exe
-NASM?=nasm$(EXT)
-REV=$(shell sh -c 'git rev-parse --short @{0}')
-CFLAGS=-m32 -pedantic -O2 -Wall -DREV=\"$(REV)\"
+NFLAGS    = -I./include/
+NASM     ?= nasm$(EXT)
+ORIGINAL  = ra95.dat
+PATCHED   = ra95.exe
 
-all: ra95.exe build
+TOOLS_DIR =./tools
 
-tools: linker$(EXT) extpe$(EXT)
+# Copies every time so you do not accidentally patch the executable twice
 
-ra95.exe: $(DAT) extpe$(EXT)
-	cp $(DAT) $(EXE)
-	./extpe$(EXT) $(EXE) .patch rwxc 4096
+$(PATCHED): $(TOOLS_DIR)/linker$(EXT) $(ORIGINAL) $(TOOLS_DIR)/extpe$(EXT)
+	cp $(ORIGINAL) $(PATCHED)
+	$(TOOLS_DIR)/linker$(EXT) src/main.asm src/main.inc $(PATCHED) $(NASM) $(NFLAGS)
 
-build: linker$(EXT)
-	./linker$(EXT) src/main.asm src/main.inc $(EXE) $(NASM) $(NFLAGS)
-	./linker$(EXT) src/nocd_search_type.asm src/nocd_search_type.inc $(EXE) $(NASM) $(NFLAGS)
-	./linker$(EXT) src/version.asm src/version.inc $(EXE) $(NASM) $(NFLAGS)
-
-$(DAT):
+$(ORIGINAL):
 	@echo "You are missing the required ra95.dat from 3.03 patch"
 	@false
 
-linker$(EXT): tools/linker.c
-	$(CC) $(CFLAGS) -o linker$(EXT) tools/linker.c
+clean: clean_tools
+	rm -rf $(PATCHED) src/*.map src/*.bin src/*.inc
 
-extpe$(EXT): tools/extpe.c tools/pe.h
-	$(CC) $(CFLAGS) -o extpe$(EXT) tools/extpe.c
+.PHONY: clean
 
-clean:
-	rm -rf extpe$(EXT) linker$(EXT) $(EXE) src/*.map src/*.bin src/*.inc
+include ./tools/Makefile

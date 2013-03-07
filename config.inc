@@ -17,6 +17,13 @@
 %define USE_BUGFIXES
 ; exception handler is still buggy
 %undef USE_EXCEPTIONS
+%define USE_EXCEPTIONS
 %define USE_NOCD
 ; hires is still buggy
-%undef USE_HIRES
+%define USE_HIRES
+%define USE_NEW_MULTIPLAYER_DEFAULTS
+; for testing new stuff
+%define USE_TEST
+%define USE_LOAD_MORE_MIX_FILES
+%define FOCUS_LOSS_KEEP_PLAYING_SOUND
+%define LOAD_FIX_OOS_INI
