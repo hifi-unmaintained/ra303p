@@ -1,5 +1,5 @@
 ;
-; Copyright (c) 2012 Toni Spets <toni.spets@iki.fi>
+; Copyright (c) 2012, 2013 Toni Spets <toni.spets@iki.fi>
 ;
 ; Permission to use, copy, modify, and distribute this software for any
 ; purpose with or without fee is hereby granted, provided that the above
@@ -65,13 +65,14 @@
 %define Seed                                        0x00680658
 %define UnitBuildPenalty                            0x006017D8
 %define NetPort                                     0x00609DBC
+%define htonl                                       0x005E5A30
 
 @HOOK 0x004F44DC Select_Game
 
 struc NetAddress
-    .zero:       RESD 1
-    .ip:         RESD 1
-    .port:       RESW 1
+    .port:      RESD 1
+    .ip:        RESD 1
+    .zero:      RESW 1
 endstruc
 
 struc Player
@@ -406,10 +407,9 @@ Initialize_Spawn:
     CALL inet_addr
 
     MOV EBX, [plr]
-    MOV [EBX + Player.address + NetAddress.zero], DWORD 0
+    MOV [EBX + Player.address + NetAddress.zero], WORD 0
     MOV [EBX + Player.address + NetAddress.ip], EAX
 
-%if 0
     ; port
     MOV ECX, 1234
     MOV EBX, str_port
@@ -418,10 +418,12 @@ Initialize_Spawn:
     CALL INIClass__Get_Int
 
     MOV EBX, [plr]
-    MOV [EBX + Player.address + NetAddress.port], AX
-%else
-    MOV [EBX + Player.address + NetAddress.port], WORD 0
-%endif
+    AND EAX, 0xFFFF
+
+    PUSH EAX
+    CALL htonl
+
+    MOV [EBX + Player.address + NetAddress.port], EAX
 
     ; add to nameTags vector
     LEA EDX, [plr]
@@ -572,3 +574,36 @@ Select_Game:
     POP EBX
     POP EBP
     RETN
+
+; these force the game to use the actual port for sending and receiving packets rather than the default 1234
+@HOOK 0x005A8ADF SendFix
+@HOOK 0x005A8A75 ReceiveFix
+
+SendFix:
+    PUSH EBX
+    MOV EBX,DWORD [EBP-18h]
+    MOV EAX,[EBX]
+
+    PUSH EAX
+    CALL htonl
+
+    TEST EAX,EAX
+    JNE .have_port
+    MOV AX,1234
+.have_port:
+    POP EBX
+    JMP 0x005A8AE5
+
+ReceiveFix:
+    SUB ESI,4
+    LEA EDX,[EBP-18h]
+
+    ; cleanup crap from port as using it as dword
+    MOV EAX,[ESI]
+    AND EAX,0xFFFF0000
+    MOV [ESI],EAX
+
+    PUSH EDI
+    MOV EAX,ECX
+    MOV ECX,2
+    JMP 0x005A8A81
