@@ -1,5 +1,5 @@
 ;
-; Copyright (c) 2012 Toni Spets <toni.spets@iki.fi>
+; Copyright (c) 2013 Toni Spets <toni.spets@iki.fi>
 ;
 ; Permission to use, copy, modify, and distribute this software for any
 ; purpose with or without fee is hereby granted, provided that the above
@@ -14,34 +14,33 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x00711000]
+; Internet button in the main menu goes to cncnet.org instead of WOL
 
-_str_version: db "3.03p4 B6 ",0
+%define SessionClass_Session    0x0067F2B4
+%define ShellExecuteA           0x005E653C
+%define ShowWindow              0x005E6884
+%define pHWnd                   0x006B1498
+%define SW_MINIMIZE             6
 
-%include "config.inc"
-%include "imports.inc"
-%include "string.inc"
+str_cncnet_org db "http://cncnet.org/", 0
+str_dot db ".", 0
 
-; generic
-%include "src/arguments.asm"
-%include "src/expansions.asm"
-%include "src/spawn.asm"
-%include "src/internet_cncnet.asm"
+@JMP 0x004F4D7E Internet_Action
 
-%ifdef USE_NOCD
-%include "src/nocd.asm"
-%endif
+Internet_Action:
 
-%ifdef USE_EXCEPTIONS
-%include "src/exception.asm"
-%endif
+    PUSH SW_MINIMIZE
+    MOV EAX, [pHWnd]
+    PUSH EAX
+    CALL DWORD [ShowWindow]
 
-%ifdef USE_BUGFIXES
-%include "src/max_units_bug.asm"
-%include "src/fence_bug.asm"
-%include "src/tags_bug.asm"
-%endif
+    PUSH 5
+    PUSH str_dot
+    PUSH 0
+    PUSH str_cncnet_org
+    PUSH 0
+    PUSH 0
+    CALL DWORD [ShellExecuteA]
 
-%ifdef USE_HIRES
-%include "src/hires.asm"
-%endif
+    MOV BYTE [SessionClass_Session], 0
+    JMP 0x004F467B
