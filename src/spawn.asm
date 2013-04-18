@@ -172,14 +172,7 @@ Initialize_Spawn:
 
     SUB ESP,68
 
-    CMP [nameTags], DWORD 0
-    JE .first_run
-
-    MOV EAX,0
-    JMP .exit
-
-.first_run:
-    ; check -SPAWN exists
+    ; check -SPAWN exists before anything
     CALL GetCommandLineA
 
     MOV EDX, str_spawn_arg
@@ -187,6 +180,13 @@ Initialize_Spawn:
     TEST EAX,EAX
     JE .exit_error
 
+    CMP [nameTags], DWORD 0
+    JE .first_run
+
+    MOV EAX,0
+    JMP .exit
+
+.first_run:
     ; initialize FileClass
     MOV EDX, str_spawn_ini
     MOV EAX, FileClass_this
